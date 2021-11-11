@@ -26,6 +26,13 @@ const expenseController = {
             res.status(500).send({ message: e.message });
             console.log(e.message);
         }
+    },
+    calucateExpenses: async (req, res) => {
+        try {
+            const calculation = await Expense.aggregate([
+                {$expense: { cost: null }}
+            ])
+        } catch(e) {}
     }
 }
 
