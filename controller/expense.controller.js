@@ -20,8 +20,15 @@ const expenseController = {
     getExpenses: async (req, res) => {
         try {
             const expenses = await Expense.find()
-            res.status(200).send(expenses);
-            console.log('Expenses:', expenses);
+            let findExpenses = []
+            // expenses.forEach(async (expense) => {
+            //     await expense.push(findExpenses);
+            // })
+            for (const expense of expenses) {
+                await expense.push(findExpenses);
+            }
+            res.status(200).send(findExpenses);
+            console.log('Expenses:', findExpenses);
         } catch(e) {
             res.status(500).send({ message: e.message });
             console.log(e.message);
