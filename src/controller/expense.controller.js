@@ -25,7 +25,7 @@ const expenseController = {
             //     await expense.push(findExpenses);
             // })
             for (const expense of expenses) {
-                await expense.push(findExpenses);
+                expense.push(findExpenses);
             }
             res.status(200).send(findExpenses);
             console.log('Expenses:', findExpenses);
@@ -33,14 +33,21 @@ const expenseController = {
             res.status(500).send({ message: e.message });
             console.log(e.message);
         }
-    },
-    calucateExpenses: async (req, res) => {
-        try {
-            const calculation = await Expense.aggregate([
-                {$expense: { cost: null }}
-            ])
-        } catch(e) {}
     }
 }
+
+// class ExpenseCtr {
+//     constructor(list, cost, category, image, description, purchased_on) {
+//         this.list = list;
+//         this.cost = cost;
+//         this.category = category;
+//         this.image = image;
+//         this.description = description;
+//         this.purchased_on = purchased_on;
+//     }
+//     createExpense = () => {}
+// }
+//
+// module.exports = ExpenseCtr;
 
 module.exports = expenseController;

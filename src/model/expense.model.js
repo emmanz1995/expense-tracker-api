@@ -14,11 +14,7 @@ const expenseSchema = new mongoose.Schema({
     description: {
         type: String,
         required: false
-    },
-    purchased_on: {
-        type: Date,
-        default: Date.now()
     }
-})
+}, { timestamps: true })
 
 mongoose.model('expense', expenseSchema);
