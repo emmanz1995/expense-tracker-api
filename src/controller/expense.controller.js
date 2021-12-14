@@ -1,53 +1,74 @@
-const mongoose = require('mongoose');
-const Expense = mongoose.model('expense');
+const Expense = require('../model/expense.model');
+const expressAsyncHandler = require('express-async-handler');
 
-const expenseController = {
-    createExpense: async (req, res) => {
-        try {
-            const { item, cost, category, image, description } = req.body;
-            if(!item || !cost || !description) {
-                return res.status(422).send({ message: 'Empty fields, type something in!' });
-            }
-            const newExpense = new Expense({ item, cost, category, image, description })
-            const savedExpense = await newExpense.save()
-            if(savedExpense) {
-                res.status(201).send(savedExpense)
-            }
-        } catch(e) {
-            res.status(500).send({ message: e.message })
+const createExpense = expressAsyncHandler(async (req, res) => {
+    const { item, cost, description, user } = req?.body;
+    try {
+        const newExpense = await Expense.create({
+            item, cost,
+            description,
+            user: user
+        })
+        if(newExpense) {
+            res.json(newExpense);
         }
-    },
-    getExpenses: async (req, res) => {
-        try {
-            const expenses = await Expense.find()
-            let findExpenses = []
-            // expenses.forEach(async (expense) => {
-            //     await expense.push(findExpenses);
-            // })
-            for (const expense of expenses) {
-                expense.push(findExpenses);
-            }
-            res.status(200).send(findExpenses);
-            console.log('Expenses:', findExpenses);
-        } catch(e) {
-            res.status(500).send({ message: e.message });
-            console.log(e.message);
-        }
+    } catch(e) {
+        res.json(e)
     }
-}
+})
 
-// class ExpenseCtr {
-//     constructor(list, cost, category, image, description, purchased_on) {
-//         this.list = list;
-//         this.cost = cost;
-//         this.category = category;
-//         this.image = image;
-//         this.description = description;
-//         this.purchased_on = purchased_on;
-//     }
-//     createExpense = () => {}
-// }
-//
-// module.exports = ExpenseCtr;
+const getExpenses = expressAsyncHandler(async (req, res) => {
+    try {
+        const expenses = await Expense.find({})
+        res.json(expenses);
+        console.log('Expenses:', expenses);
+    } catch(e) {
+        res.json(e);
+        console.log(e);
+    }
+})
 
-module.exports = expenseController;
+const getSingleExpense = expressAsyncHandler(async (req, res) => {
+    const { id } = req?.params;
+    try {
+        const expenses = await Expense.findById(id)
+        res.json(expenses);
+        console.log('Expenses:', expenses);
+    } catch(e) {
+        res.json(e);
+        console.log(e);
+    }
+})
+
+const updateExpense = expressAsyncHandler(async (req, res) => {
+    const { id } = req?.params;
+    const { item, cost, description } = req?.body;
+    try {
+        const expenses = await Expense.findByIdAndUpdate(id, {
+            item, cost,
+            description
+        }, {
+            new: true
+        })
+        res.json(expenses);
+        console.log('Expenses:', expenses);
+    } catch(e) {
+        res.json(e);
+        console.log(e);
+    }
+})
+const deleteExpense = expressAsyncHandler(async (req, res) => {
+    const { id } = req?.params
+    try {
+        const expenses = await Expense.findByIdAndDelete(id)
+        res.json('Expense has been successfully deleted!');
+        console.log('Expenses:', expenses);
+    } catch(e) {
+        res.json(e);
+        console.log(e);
+    }
+})
+
+
+
+module.exports = { createExpense, getExpenses, getSingleExpense, updateExpense, deleteExpense };

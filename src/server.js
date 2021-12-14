@@ -5,6 +5,7 @@ const dbConnection = require('./config/dbConnection');
 const { errorHandler, notFound } = require('./middleware/errorMiddleware');
 const userRoute = require('./routes/user');
 const incomeRoute = require('./routes/income');
+const expenseRoute = require('./routes/expense.routes');
 
 const app = express();
 const PORT = 5000 || process.env.PORT;
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('./model/expense.model');
 
 app.use(express.json());
-app.use(require('./routes/expense.routes'));
+app.use('/api/expense', expenseRoute);
 app.use('/api/user/', userRoute);
 app.use('/api/income', incomeRoute);
 

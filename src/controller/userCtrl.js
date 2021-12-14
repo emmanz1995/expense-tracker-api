@@ -1,4 +1,4 @@
-const User = require('../model/User');
+const User = require('../model/user.model');
 const expressAsyncHandler = require('express-async-handler');
 const generateJwt = require('../middleware/generateJwt');
 

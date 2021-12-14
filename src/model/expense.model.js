@@ -9,12 +9,21 @@ const expenseSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    category: String,
-    image: String,
     description: {
         type: String,
         required: false
+    },
+    type: {
+        type: String,
+        default: "expense"
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 }, { timestamps: true })
 
-mongoose.model('expense', expenseSchema);
+const Expenses = mongoose.model('expense', expenseSchema);
+
+module.exports = Expenses;
