@@ -1,5 +1,6 @@
 const User = require('../model/User');
 const expressAsyncHandler = require('express-async-handler');
+const generateJwt = require('../middleware/generateJwt');
 
 const registerUser = expressAsyncHandler(async (req, res) => {
     const { firstname, surname, email, username, password, dob } = req?.body;
@@ -13,9 +14,35 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     }
 })
 
-const loginUser = () => {}
+const loginUser = expressAsyncHandler(async (req, res) => {
+    const { email, password } = req?.body;
+    const userFound = await User.findOne({ email });
+    if(userFound && (await userFound?.isPasswordMatch(password))) {
+        res.json({
+            _id: userFound?._id,
+            firstname: userFound?.firstname,
+            surname: userFound?.surname,
+            email: userFound?.email,
+            isAdmin: userFound?.isAdmin,
+            token: generateJwt(userFound?._id)
+        })
+    } else {
+        res.status(401);
+        throw new Error('Invalid login credentials!');
+    }
+    // try {
+    // } catch(e) {}
+})
 
-const getUsers = () => {}
+const getUsers = expressAsyncHandler(async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.json(users);
+
+    } catch(e) {
+        res.json(e);
+    }
+})
 
 module.exports = {
     registerUser,
