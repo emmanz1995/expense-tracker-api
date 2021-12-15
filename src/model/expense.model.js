@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePagination = require('mongoose-paginate-v2');
 
 const expenseSchema = new mongoose.Schema({
     item: {
@@ -19,10 +20,26 @@ const expenseSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'UserModel',
         required: true
     }
-}, { timestamps: true })
+},
+    {
+        timestamps: true
+    },
+    {
+        toJSON: {
+            virtuals: true
+        }
+    },
+    {
+        toObject: {
+            virtuals: true
+        }
+    }
+    );
+
+expenseSchema.plugin(mongoosePagination);
 
 const Expenses = mongoose.model('expense', expenseSchema);
 

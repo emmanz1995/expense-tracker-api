@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const { Schema } = mongoose;
 
 const incomeSchema = new Schema ({
@@ -20,10 +21,23 @@ const incomeSchema = new Schema ({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'UserModel',
         required: true
     }
-}, { timestamps: true });
+},
+    {
+        timestamps: true,
+        toJSON: {
+            virtuals: true
+        },
+        toObject: {
+            virtuals: true
+        }
+    }
+);
+
+// pagination
+incomeSchema.plugin(mongoosePaginate);
 
 const IncomeModel = mongoose.model('income', incomeSchema)
 module.exports = IncomeModel;
