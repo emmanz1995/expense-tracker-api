@@ -1,0 +1,396 @@
+{
+	"info": {
+		"_postman_id": "30d20bf7-2db2-468a-a5c3-fbbd9646f34e",
+		"name": "Cashify Tracker App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Income Functions",
+			"item": [
+				{
+					"name": "Create Income",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYjkwNjAwM2NjYmQ5MDQzZjViYjgzMCIsImlhdCI6MTYzOTUxODkyNSwiZXhwIjoxNjQyMTEwOTI1fQ.TVOIiz9z3KXZYA8WWj6zohqhHCIQI9p2f2uH4JfMXVo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Salary\",\r\n    \"amount\": \"1903\",\r\n    \"description\": \"My Salary for the month!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/income/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"income",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Incomes",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYjkwNjAwM2NjYmQ5MDQzZjViYjgzMCIsImlhdCI6MTYzOTUxODkyNSwiZXhwIjoxNjQyMTEwOTI1fQ.TVOIiz9z3KXZYA8WWj6zohqhHCIQI9p2f2uH4JfMXVo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/income/getincomes?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"income",
+								"getincomes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Income",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Salary2\",\r\n    \"amount\": \"17031\",\r\n    \"description\": \"My Salary for the Week!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/income/updateincome/61b7f9692a6c846e3cc1c8ba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"income",
+								"updateincome",
+								"61b7f9692a6c846e3cc1c8ba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Income",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/income/getincome/61b7f9692a6c846e3cc1c8ba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"income",
+								"getincome",
+								"61b7f9692a6c846e3cc1c8ba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Income",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYjkwNjAwM2NjYmQ5MDQzZjViYjgzMCIsImlhdCI6MTYzOTUxODkyNSwiZXhwIjoxNjQyMTEwOTI1fQ.TVOIiz9z3KXZYA8WWj6zohqhHCIQI9p2f2uH4JfMXVo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/api/income/deleteincome/61b913da52e8385c3f414c3a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"income",
+								"deleteincome",
+								"61b913da52e8385c3f414c3a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Expense Functions",
+			"item": [
+				{
+					"name": "Create Expense",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYjkwNjAwM2NjYmQ5MDQzZjViYjgzMCIsImlhdCI6MTYzOTUxODkyNSwiZXhwIjoxNjQyMTEwOTI1fQ.TVOIiz9z3KXZYA8WWj6zohqhHCIQI9p2f2uH4JfMXVo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item\": \"Afrimalt\",\r\n    \"cost\": 1.1,\r\n    \"description\": \"Really amazing african drink!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/expense/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"expense",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Expenses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/expense/getexpenses?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"expense",
+								"getexpenses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Expense",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/expense/getexpense/618d99e5f8a36114c51869ee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"expense",
+								"getexpense",
+								"618d99e5f8a36114c51869ee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Expense",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item\": \"PS5 2\",\r\n    \"cost\": \"704\",\r\n    \"description\": \"Sony's Playstation PS5!\",\r\n    \"user\": \"61b7d564f39eafd780ec6646\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/expense/updateexpense/61b899bbfe953a9ce7fc7a67",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"expense",
+								"updateexpense",
+								"61b899bbfe953a9ce7fc7a67"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Expense",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/expense/deleteexpense/618d9adfb804c700b7ebe4dc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"expense",
+								"deleteexpense",
+								"618d9adfb804c700b7ebe4dc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth Functions",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Emmanuel\",\r\n    \"surname\": \"Okuchukwu\",\r\n    \"email\": \"Emmanuel.Okuchukwu@gmail.com\",\r\n    \"username\": \"emmanz95\",\r\n    \"dob\": \"1995-06-28 23:10:08.212Z\",\r\n    \"password\": \"Password@123?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Emmanuel.Okuchukwu@gmail.com\",\r\n    \"password\": \"Password@123?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/user/getusers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"user",
+								"getusers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

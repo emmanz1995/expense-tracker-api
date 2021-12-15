@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createIncome, fetchIncomes, fetchSingleIncome, updateIncome, deleteIncome } = require('../controller/incomeCtrl');
+const { createIncome, fetchIncomes, fetchSingleIncome, updateIncome, deleteIncome } = require('../controller/income.controller');
 const requireJwt = require('../middleware/requireJwt');
 
 router.post('/create', requireJwt, createIncome);

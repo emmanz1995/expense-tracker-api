@@ -9,9 +9,9 @@ const createIncome = expressAsyncHandler(async (req, res) => {
             description,
             user: req?.user?._id
         });
-        res.json(income);
+        res?.json(income);
     } catch(e) {
-        res.json(e);
+        res?.json(e);
     }
 })
 
@@ -20,9 +20,9 @@ const fetchIncomes = expressAsyncHandler(async (req, res) => {
     const { page } = req?.query;
     try {
         const income = await Income.paginate({}, { limit: 5, page: Number(page), populate: "user" });
-        res.json(income);
+        res?.json(income);
     } catch(e) {
-        res.json(e);
+        res?.json(e);
     }
 })
 

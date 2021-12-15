@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const dbConnection = require('./config/dbConnection');
 const { errorHandler, notFound } = require('./middleware/errorMiddleware');
-const userRoute = require('./routes/user');
-const incomeRoute = require('./routes/income');
+const userRoute = require('./routes/user.routes');
+const incomeRoute = require('./routes/income.routes');
 const expenseRoute = require('./routes/expense.routes');
 
 const app = express();
