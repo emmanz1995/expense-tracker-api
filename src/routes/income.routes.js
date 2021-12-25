@@ -5,7 +5,7 @@ const requireJwt = require('../middleware/requireJwt');
 
 router.post('/create', requireJwt, createIncome);
 
-router.get('/getincomes', fetchIncomes);
+router.get('/getincomes', requireJwt, fetchIncomes);
 
 router.get('/getincome/:id', requireJwt, fetchSingleIncome);
 

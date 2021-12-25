@@ -16,10 +16,9 @@ const createIncome = expressAsyncHandler(async (req, res) => {
 })
 
 const fetchIncomes = expressAsyncHandler(async (req, res) => {
-    console.log('User:', req?.user?._id)
     const { page } = req?.query;
     try {
-        const income = await Income.paginate({}, { limit: 5, page: Number(page), populate: "user" });
+        const income = await Income.paginate({ user: req.user._id }, { limit: 6, page: Number(page), populate: "user" });
         res?.json(income);
     } catch(e) {
         res?.json(e);
@@ -30,9 +29,9 @@ const fetchSingleIncome = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params;
     try {
         const income = await Income.findById(id);
-        res.json(income);
+        res?.json(income);
     } catch(e) {
-        res.json(e);
+        res?.json(e);
     }
 })
 
@@ -46,9 +45,9 @@ const updateIncome = expressAsyncHandler(async (req, res) => {
         }, {
             new: true
         });
-        res.json(income);
+        res?.json(income);
     } catch(e) {
-        res.json(e);
+        res?.json(e);
     }
 })
 
@@ -56,9 +55,9 @@ const deleteIncome = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params;
     try {
         const income = await Income.findByIdAndDelete(id);
-        res.json('Income has been deleted successfully!');
+        res?.json(income);
     } catch(e) {
-        res.json(e);
+        res?.json(e);
     }
 })
 
