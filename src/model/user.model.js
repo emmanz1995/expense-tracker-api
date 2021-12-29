@@ -33,6 +33,17 @@ const UserSchema = new Schema ({
     }
 }, { timestamps: true });
 
+UserSchema.virtual('expense', {
+    ref: 'expense',
+    foreignField: 'user',
+    localField: '_id'
+});
+UserSchema.virtual('income', {
+    ref: 'income',
+    foreignField: 'user',
+    localField: '_id'
+})
+
 UserSchema.pre('save', async function(next) {
     if(!this.isModified('password')) {
         next();

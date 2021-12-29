@@ -8,9 +8,9 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     if (registeredUser) throw new Error('User already registered!')
     try {
         const user = await User.create({ firstname, surname, email, username, password, dob });
-        res.status(200).json(user);
+        res?.status(200).json(user);
     } catch (e) {
-        res.json(e);
+        res?.json(e);
     }
 })
 
@@ -18,7 +18,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     const { email, password } = req?.body;
     const userFound = await User.findOne({ email });
     if(userFound && (await userFound?.isPasswordMatch(password))) {
-        res.json({
+        res?.json({
             _id: userFound?._id,
             firstname: userFound?.firstname,
             surname: userFound?.surname,
@@ -37,15 +37,26 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 const getUsers = expressAsyncHandler(async (req, res) => {
     try {
         const users = await User.find({});
-        res.json(users);
+        res?.json(users);
 
     } catch(e) {
-        res.json(e);
+        res?.json(e);
     }
+})
+
+const getMyProfile = expressAsyncHandler(async (req, res) => {
+   const { _id } = req?.user;
+   try {
+       const me = await User.findById(_id).select('-password -__v').populate(['expense', 'income'])
+       res?.json(me)
+   } catch(error) {
+       res?.json(error);
+   }
 })
 
 module.exports = {
     registerUser,
     loginUser,
-    getUsers
+    getUsers,
+    getMyProfile
 };
