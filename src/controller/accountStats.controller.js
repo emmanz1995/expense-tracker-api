@@ -5,7 +5,7 @@ const Income = require("../model/income.model");
 const accountStatsCtrl = expressAsyncHandler(async (req, res) => {
     const expensesStats = await Expense.aggregate([
         //filter
-        { $match: { amount: { $gte: 20 } } },
+        { $match: { amount: { $gte: 0 } } },
         {
             $group: {
                 _id: null,
@@ -20,7 +20,7 @@ const accountStatsCtrl = expressAsyncHandler(async (req, res) => {
 
     const incomeStats = await Income.aggregate([
         //filter
-        { $match: { amount: { $gte: 20 } } },
+        { $match: { amount: { $gte: 0 } } },
         {
             $group: {
                 _id: null,
@@ -33,8 +33,8 @@ const accountStatsCtrl = expressAsyncHandler(async (req, res) => {
         },
     ]);
 
-    // const profit = incomeStats[0].totalInc - expensesStats[0].totalExp;
-    res?.json({ expensesStats, incomeStats });
+    const profit = incomeStats[0].totalInc - expensesStats[0].totalExp;
+    res?.json({ expensesStats, incomeStats, profit });
 });
 module.exports = {
     accountStatsCtrl,
