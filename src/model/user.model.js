@@ -31,18 +31,28 @@ const UserSchema = new Schema ({
         type: String,
         required: true
     }
-}, { timestamps: true });
+},
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        toObject: {
+            virtuals: true,
+        },
+        timestamps: true,
+    }
+);
 
-UserSchema.virtual('expense', {
-    ref: 'expense',
-    foreignField: 'user',
-    localField: '_id'
+UserSchema.virtual("expense", {
+    ref: "expense",
+    foreignField: "user",
+    localField: "_id",
 });
-UserSchema.virtual('income', {
-    ref: 'income',
-    foreignField: 'user',
-    localField: '_id'
-})
+UserSchema.virtual("income", {
+    ref: "income",
+    foreignField: "user",
+    localField: "_id",
+});
 
 UserSchema.pre('save', async function(next) {
     if(!this.isModified('password')) {

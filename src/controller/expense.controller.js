@@ -1,37 +1,36 @@
-const Expense = require('../model/expense.model');
+const Expenses = require('../model/expense.model');
 const expressAsyncHandler = require('express-async-handler');
 
 const createExpense = expressAsyncHandler(async (req, res) => {
-    const { item, cost, description } = req?.body;
+    const { title, amount, description } = req?.body;
     try {
-        const newExpense = await Expense.create({
-            item, cost,
+        const newExpense = await Expenses.create({
+            title, amount,
             description,
             user: req?.user?._id
         })
         if(newExpense) {
-            res.json(newExpense);
+            res?.json(newExpense);
         }
     } catch(e) {
-        res.json(e)
+        res?.json(e)
     }
 })
 
 const getExpenses = expressAsyncHandler(async (req, res) => {
     const { page } = req?.query;
     try {
-        const expenses = await Expense.paginate({}, { limit: 5, page: Number(page), populate: "user" });
-        res.json(expenses);
+        const expenses = await Expenses.paginate({ user: req.user._id }, { limit: 6, page: Number(page), populate: "user" });
+        res?.json(expenses);
     } catch(e) {
-        res.json(e);
-        console.log(e);
+        res?.json(e);
     }
 })
 
 const getSingleExpense = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params;
     try {
-        const expenses = await Expense.findById(id)
+        const expenses = await Expenses.findById(id)
         res?.json(expenses);
         console.log('Expenses:', expenses);
     } catch(e) {
@@ -42,29 +41,29 @@ const getSingleExpense = expressAsyncHandler(async (req, res) => {
 
 const updateExpense = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params;
-    const { item, cost, description } = req?.body;
+    const { title, amount, description } = req?.body;
     try {
-        const expenses = await Expense.findByIdAndUpdate(id, {
-            item, cost,
+        const expenses = await Expenses.findByIdAndUpdate(id, {
+            title, amount,
             description
         }, {
             new: true
         })
-        res.json(expenses);
+        res?.json(expenses);
         console.log('Expenses:', expenses);
     } catch(e) {
-        res.json(e);
+        res?.json(e);
         console.log(e);
     }
 })
 const deleteExpense = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params
     try {
-        const expenses = await Expense.findByIdAndDelete(id)
-        res.json('Expense has been successfully deleted!');
+        const expenses = await Expenses.findByIdAndDelete(id)
+        res?.json('Expense has been successfully deleted!');
         console.log('Expenses:', expenses);
     } catch(e) {
-        res.json(e);
+        res?.json(e);
         console.log(e);
     }
 })

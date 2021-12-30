@@ -1,10 +1,10 @@
-const Income = require('../model/income.model');
+const IncomeModel = require('../model/income.model');
 const expressAsyncHandler = require('express-async-handler');
 
 const createIncome = expressAsyncHandler(async (req, res) => {
     const { title, amount, description } = req?.body;
     try {
-        const income = await Income.create({
+        const income = await IncomeModel.create({
             title, amount,
             description,
             user: req?.user?._id
@@ -18,7 +18,7 @@ const createIncome = expressAsyncHandler(async (req, res) => {
 const fetchIncomes = expressAsyncHandler(async (req, res) => {
     const { page } = req?.query;
     try {
-        const income = await Income.paginate({ user: req.user._id }, { limit: 6, page: Number(page), populate: "user" });
+        const income = await IncomeModel.paginate({ user: req.user._id }, { limit: 6, page: Number(page), populate: "user" });
         res?.json(income);
     } catch(e) {
         res?.json(e);
@@ -28,7 +28,7 @@ const fetchIncomes = expressAsyncHandler(async (req, res) => {
 const fetchSingleIncome = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params;
     try {
-        const income = await Income.findById(id);
+        const income = await IncomeModel.findById(id);
         res?.json(income);
     } catch(e) {
         res?.json(e);
@@ -39,7 +39,7 @@ const updateIncome = expressAsyncHandler(async (req, res) => {
     const { title, amount, description } = req?.body;
     const { id } = req?.params;
     try {
-        const income = await Income.findByIdAndUpdate(id, {
+        const income = await IncomeModel.findByIdAndUpdate(id, {
             title, amount,
             description
         }, {
@@ -54,7 +54,7 @@ const updateIncome = expressAsyncHandler(async (req, res) => {
 const deleteIncome = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params;
     try {
-        const income = await Income.findByIdAndDelete(id);
+        const income = await IncomeModel.findByIdAndDelete(id);
         res?.json(income);
     } catch(e) {
         res?.json(e);

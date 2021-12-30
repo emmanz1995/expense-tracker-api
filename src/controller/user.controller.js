@@ -27,11 +27,9 @@ const loginUser = expressAsyncHandler(async (req, res) => {
             token: generateJwt(userFound?._id)
         })
     } else {
-        res.status(401);
+        res?.status(401);
         throw new Error('Invalid login credentials!');
     }
-    // try {
-    // } catch(e) {}
 })
 
 const getUsers = expressAsyncHandler(async (req, res) => {
@@ -45,10 +43,10 @@ const getUsers = expressAsyncHandler(async (req, res) => {
 })
 
 const getMyProfile = expressAsyncHandler(async (req, res) => {
-   const { _id } = req?.user;
+   // const { _id } = req?.user;
    try {
-       const me = await User.findById(_id).select('-password -__v').populate(['expense', 'income'])
-       res?.json(me)
+       const me = await User.findById(req?.user?._id).select('-password').populate('income').populate('expense');
+       res?.json(me);
    } catch(error) {
        res?.json(error);
    }

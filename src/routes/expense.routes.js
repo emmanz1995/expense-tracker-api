@@ -5,7 +5,7 @@ const requireJwt = require('../middleware/requireJwt');
 
 router.post('/create', requireJwt, createExpense);
 
-router.get('/getexpenses', getExpenses);
+router.get('/getexpenses', requireJwt, getExpenses);
 
 router.get('/getexpense/:id', requireJwt, getSingleExpense);
 

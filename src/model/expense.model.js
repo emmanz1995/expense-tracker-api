@@ -1,22 +1,23 @@
 const mongoose = require('mongoose');
 const mongoosePagination = require('mongoose-paginate-v2');
+const { Schema } = mongoose;
 
-const expenseSchema = new mongoose.Schema({
-    item: {
+const expenseSchema = new Schema({
+    title: {
         type: String,
-        required: true
-    },
-    cost: {
-        type: Number,
         required: true
     },
     description: {
         type: String,
-        required: false
+        required: true
     },
     type: {
         type: String,
-        default: "expense"
+        default: 'expense'
+    },
+    amount: {
+        type: Number,
+        required: true
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -25,19 +26,15 @@ const expenseSchema = new mongoose.Schema({
     }
 },
     {
-        timestamps: true
-    },
-    {
         toJSON: {
             virtuals: true
-        }
-    },
-    {
+        },
         toObject: {
             virtuals: true
-        }
+        },
+        timestamps: true,
     }
-    );
+);
 
 expenseSchema.plugin(mongoosePagination);
 
