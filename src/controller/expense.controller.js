@@ -60,7 +60,7 @@ const deleteExpense = expressAsyncHandler(async (req, res) => {
     const { id } = req?.params
     try {
         const expenses = await Expenses.findByIdAndDelete(id)
-        res?.json('Expense has been successfully deleted!');
+        res?.json(expenses);
         console.log('Expenses:', expenses);
     } catch(e) {
         res?.json(e);
