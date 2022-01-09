@@ -37,5 +37,5 @@ app.use(notFound);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-    console.log(`Api running at PORT - ${PORT}`);
+    console.log(`API running at PORT - ${PORT}`);
 })
